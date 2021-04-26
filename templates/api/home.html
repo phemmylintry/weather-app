@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <title>Weather App</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <h1>CHECK WEATHER</h1>
+        <p>Input Coordinates</p>
+        <form id="get-forcast" method="POST">
+            {% csrf_token %}
+            <script>
+                const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            </script>
+            Latitude: <input id="lat" type="text"/>
+            Longitude: <input id="long" type="text"/>
+            <input type="submit" id="btn-submit" class="btn" value="Submit"/>
+        </form>
+
+
+        <p><strong>Details of Weather</strong></p>
+        <div id="weather-details">
+    </body>
+    <script src="{% static 'js/index.js' %}"></script>
+</html>
