@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 import requests
 import json
 # Create your views here.
@@ -12,15 +13,8 @@ def home(request):
 
 def get_weather(request):
 
-    """
-    Retruns JSON response containing sorted list.
-    Gets request from Post method or ajax, passes request into quick_sort function, 
-    returns JSONResponse of sorted list
-    """
-
     #check if request is ajax or Post
     if request.is_ajax() and request.method != 'POST':
-        
         return JsonResponse({'status' : 'Fail'}, status=400)
     
     #store data in variable text
@@ -28,9 +22,12 @@ def get_weather(request):
     lon = request.POST.get('long', None)
 
     URL = 'https://api.met.no/weatherapi/locationforecast/2.0/compact?lat={}&lon={}'.format(lat, lon)
-    print(URL)
-    r = requests.get(URL)
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64;"}
+    
+    r = requests.get(URL, headers=headers)
 
-    result = json.loads(r.content.decode('utf-8'))
+    json = r.json()
 
-    print(result)
+    details = json['properties']['meta']
+    
+    return JsonResponse(details, status=200, safe=False)

@@ -31,12 +31,10 @@ $(document).ready(function () {
             success : function (response) {
                 console.log("After sorting", response)
                 var str = '<div>'
-                response.forEach(function(word) {
-                    str += '<p>' + word + '<p>';
-                });
+                
 
                 str += '</div>'
-                document.getElementById("sorted-words").innerHTML = str;
+                document.getElementById("weather-details").innerHTML = str;
                 $('#btn-submit').attr("value","Submit");
                 button.disabled = false;
             },
@@ -48,6 +46,6 @@ $(document).ready(function () {
                 button.disabled = false;
             }
         })
-        document.getElementById('sort-form').reset();
+        document.getElementById('get-forcast').reset();
     })
 })
